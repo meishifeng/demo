@@ -12,9 +12,7 @@ import java.util.Set;
 
 /**
  * <ul>
- * <li>类名</li>
- * <li>1.方法一说明</li>
- * <li>2.方法二说明</li>
+ * <li>用户信息实体类</li>
  * <li>User:meishifeng Date:2018/04/26 Time:10:12</li>
  * </ul>
  */

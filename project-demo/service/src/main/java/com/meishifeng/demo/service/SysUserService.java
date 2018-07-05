@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * <ul>
  * <li>用户类service</li>
- * <li>1.方法一说明</li>
- * <li>2.方法二说明</li>
+ * <li>1.根据账号获取用户信息</li>
+ * <li>2.获取用户权限菜单</li>
  * <li>User:meishifeng Date:2017/1/4 Time:10:43</li>
  * </ul>
  */

@@ -1,11 +1,10 @@
 package com.meishifeng.demo.model;
 
-import com.meishifeng.demo.model.BaseDO;
 import lombok.Data;
 
 /**
  * <ul>
- * <li>用户角色实体类</li>
+ * <li>角色数据对象实体类</li>
  * <li>User:meishifeng Date:2018/04/25 Time:15:27</li>
  * </ul>
  */

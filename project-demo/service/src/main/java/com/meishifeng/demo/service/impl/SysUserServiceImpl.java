@@ -24,7 +24,7 @@ import java.util.Set;
 
 /**
  * <ul>
- * <li>用户类service实现类</li>
+ * <li>用户信息service实现类</li>
  * <li>1.根据账号获取用户信息</li>
  * <li>2.根据用户id获取该用户所有的角色</li>
  * <li>3.获取用户权限菜单</li>

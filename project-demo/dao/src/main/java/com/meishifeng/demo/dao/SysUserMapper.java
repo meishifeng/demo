@@ -18,6 +18,11 @@ import java.util.Map;
 @Repository
 public class SysUserMapper extends BaseMapper {
 
+    /**
+     * 根据账号获取用户信息数据对象
+     * @param account   账号
+     * @return
+     */
     public SysUserDO selectSysUserByAccount(String account){
         SysUserDO sysUserDO = getSqlSession().selectOne("SysUserMapper.selectSysUserByAccount", account);
         return sysUserDO;

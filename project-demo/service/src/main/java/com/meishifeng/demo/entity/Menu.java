@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * <ul>
- * <li>类名</li>
+ * <li>菜单实体</li>
  * <li>1.方法一说明</li>
  * <li>2.方法二说明</li>
  * <li>User:meishifeng Date:2018/05/05 Time:10:46</li>

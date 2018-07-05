@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * <ul>
- * <li>实体类基础</li>
+ * <li>数据对象实体类基础</li>
  * <li>User:meishifeng Date:2017/1/4 Time:15:17</li>
  * </ul>
  */
