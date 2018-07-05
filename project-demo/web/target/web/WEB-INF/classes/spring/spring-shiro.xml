@@ -1,0 +1,74 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/cache
+     http://www.springframework.org/schema/cache/spring-cache.xsd
+     http://www.springframework.org/schema/util
+     http://www.springframework.org/schema/util/spring-util.xsd
+     http://www.springframework.org/schema/context 
+     http://www.springframework.org/schema/context/spring-context.xsd"
+	default-lazy-init="true">
+	
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login.html"></property>
+		<property name="successUrl" value="/index.html" />
+		<property name="unauthorizedUrl" value="/deny" />
+		<property name="filterChainDefinitions">
+			<value>
+				# more URL-to-FilterChain definitions here
+				/resource/** = anon
+				/login = anon
+				/userLogin = anon
+				<!--/swagger-ui.html/** = anon-->
+				/logout = logout
+				/** = authc <!-- authc  -->
+				<!-- /index.jsp=anon
+				/jsp/success.jsp=anon
+				/jsp/fail.jsp=anon
+				/jsp/user.jsp = roles[user]
+				/jsp/admin.jsp = roles[admin]
+				/logout = logout  -->
+			</value>
+		</property>
+	</bean>
+
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache-local.xml"></property>
+		<property name="shared" value="true"></property>
+	</bean>
+
+ 	<!-- 配置 Shiro 的 SecurityManager Bean. -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="shiroRealm" />
+		<property name="cacheManager" ref="shiroCacheManager"></property>
+	</bean>
+	<!-- 配置进行授权和认证的 Realm -->  
+	<bean id="shiroRealm" class="com.meishifeng.demo.web.shiro.ShiroRealm">
+		<!-- <property name="credentialsMatcher" ref="hashedCredentialsMatcher"></property> -->
+		<!-- 配置缓存管理器 -->  
+		<property name="cacheManager" ref="shiroCacheManager"></property>
+	</bean>
+	
+	<bean id="hashedCredentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="md5"></property>
+		<property name="hashIterations" value="1"></property>
+		<property name="storedCredentialsHexEncoded" value="false"></property>
+	</bean>
+	
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehCacheManager"></property>
+	</bean>
+	  <!-- 配置 Bean 后置处理器: 会自动的调用和 Spring 整合后各个组件的生命周期方法. -->  
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- Shiro Spring AOP权限注解的支持 -->
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager"></property>
+	</bean>
+</beans>

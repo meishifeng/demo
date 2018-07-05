@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+       <!-- 数据源配置, 使用Druid数据库连接池 -->
+       <!-- mysql 数据源 -->
+       <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+              <!-- Connection Info -->
+              <property name="name" value="mysql"/>
+              <property name="driverClassName" value="#{app.jdbcDriver}"/>
+              <property name="url" value="#{app.jdbcUrl}"/>
+              <property name="username" value="#{app.jdbcUsername}"/>
+              <property name="password" value="#{app.jdbcPassword}"/>
+              <property name="filters" value="config,stat"/>
+              <property name="connectionProperties" value="config.decrypt=true;druid.stat.slowSqlMillis=3000;druid.stat.logSlowSql=true;druid.stat.mergeSql=true"/>
+
+              <!-- Connection Pooling Info -->
+              <property name="maxActive" value="#{app.dbcpMaxActive}"/>
+              <property name="defaultAutoCommit" value="false"/>
+              <property name="initialSize" value="#{app.dbcpInitialSize}"/>
+              <!-- 空闲连接检测 -->
+              <property name="testWhileIdle" value="true"/>
+              <property name="testOnBorrow" value="true"/>
+              <property name="testOnReturn" value="false"/>
+              <property name="validationQuery" value="SELECT 1 FROM DUAL"/>
+              <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+              <property name="minEvictableIdleTimeMillis" value="120000"/>
+       </bean>
+
+       <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+              <property name="dataSource" ref="dataSource"/>
+              <property name="configLocation" value="classpath:/mybatis.xml"/>
+              <property name="mapperLocations">
+                     <list>
+                            <value>classpath:mapper/*Mapper.xml</value>
+                     </list>
+              </property>
+       </bean>
+
+       <task:executor id="taskExecutor" pool-size="5-30" queue-capacity="10000" rejection-policy="CALLER_RUNS"/>
+
+       <bean name="transactionManager"
+             class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+              <property name="dataSource" ref="dataSource"/>
+       </bean>
+
+       <!-- 使用annotation定义事务 -->
+       <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+</beans>

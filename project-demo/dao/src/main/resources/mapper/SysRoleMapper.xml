@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SysRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.meishifeng.demo.model.SysRoleDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="sort" property="sort" jdbcType="INTEGER" />
+        <result column="isUsed" property="isUsed" jdbcType="INTEGER" />
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+        <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, description, sort, isUsed, created_at, created_by, updated_at, updated_by
+    </sql>
+
+    <select id="selectSysRoleByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT <include refid="Base_Column_List"/> FROM sys_role sr
+        WHERE sr.id in (
+            SELECT roleId from sys_user_role
+            <where>
+                <if test="_parameter != null and _parameter != ''">
+                    userId = #{userId, jdbcType=VARCHAR}
+                </if>
+            </where>
+        )
+    </select>
+
+
+
+</mapper>
+

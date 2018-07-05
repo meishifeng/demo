@@ -1,0 +1,16 @@
+html {-webkit-tap-highlight-color:rgba(0,0,0,0); -webkit-tap-highlight:rgba(0,0,0,0);-webkit-text-size-adjust:none;}
+input,button,select,textarea{outline:none}
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus {box-shadow:0 0 0 60px #fff inset; -webkit-text-fill-color: #333;}
+.login_box{padding: 120px 0; font-size:16px;}
+.login_box h1{font-size:30px; color:#00a3e2; text-indent: -40px; font-weight:800; height:60px;font-family:"microsoft yahei";}
+.input_txt{width: 270px; line-height:48px; padding:2px 6px; border:1px solid #ccc; border-radius:6px;height:48px;}
+.login_tb td{padding: 5px 10px; font-size:16px;font-family:"microsoft yahei";}
+.login_tb th{font-size: 26px;font-weight: bold;color:rgb(48, 119, 196);font-family:"microsoft yahei";}
+.login_btn{width:284px; height:52px;font-size:16px; cursor: pointer; background-color:#00a3e2; border:1px solid #00a3e2; color:#fff; border-radius:6px;}
+.login_btn:hover{background-color:#0094cc; border:1px solid #0094cc;}
+.l_blue_btn{color:#0094cc;font-size:16px; margin:10px 0; cursor: pointer; border:1px solid #ccc; background-color:#fff; width:240px; height:50px;border-radius:6px;}
+.l_blue_btn:hover{background-color:#0094cc; border:1px solid #0094cc; color:#fff;}
+img{width:60px;height:60px;}
+.logoCon{line-height:60px;}
+.login_tb th.login_th{position: relative;}
+.login_tb th .logo{width:60px;height:60px;display:inline-block;position: absolute;right: 7px;;top:0px;}
